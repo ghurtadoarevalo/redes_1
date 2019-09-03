@@ -29,6 +29,8 @@ matp.ylabel('amplitud (db)')
 matp.xlabel('tiempo (s)')
 matp.show()
 
+#De acá obtuve cómo hacer el gráfico
+#https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft.html
 fourier = numpy.fft.fft(audio)
 fourierFreq = numpy.fft.fftfreq(audio.shape[-1])
 
