@@ -209,3 +209,14 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python,pycharm
+.idea/inspectionProfiles/profiles_settings.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/redes_1.iml
+
+.idea/vcs.xml
+
+lab1test.py

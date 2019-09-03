@@ -22,21 +22,21 @@ tiempo = numpy.linspace(0,len(audio)/rate, num=len(audio))
 #matp.plot(tiempo, frecuencias)
 #matp.show()
 
-matp.plot(tiempo,audio)
+matp.plot(tiempo, audio)
+
 matp.title('Gráfico amplitud vs tiempo')
 matp.ylabel('amplitud (db)')
 matp.xlabel('tiempo (s)')
 matp.show()
 
 fourier = numpy.fft.fft(audio)
+fourierFreq = numpy.fft.fftfreq(audio.shape[-1])
 
 #fourierInv = numpy.fft.ifft(fourier)
-matp.plot(audio,fourier)
+matp.plot(fourierFreq, fourier.real, fourierFreq, fourier.real)
 matp.title('Gráfico amplitud vs frecuencia')
 matp.ylabel('amplitud (db)')
 matp.xlabel('frecuencia (hz)')
 matp.show()
-
-
 
 #Buscar mas importantes
