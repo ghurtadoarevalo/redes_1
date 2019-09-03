@@ -11,24 +11,32 @@ import numpy
 #Arreglo de frecuencias medidas en hz
 #dtype: Indica el tipo de formato WAV que se esta recibiendo.
 #		Por cada formato se tiene una frecuencia maxima y minima
-
 data = sci.read('handel.wav')
-
 rate = data[0]
-frecuencias = data[1]
+audio = data[1]
 
 #Como graficar archivos WAV a razon del tiempo
 #https://stackoverflow.com/questions/18625085/how-to-plot-a-wav-file
 
-tiempo = numpy.linspace(0,len(frecuencias)/rate, num=len(frecuencias))
+tiempo = numpy.linspace(0,len(audio)/rate, num=len(audio))
 #matp.plot(tiempo, frecuencias)
 #matp.show()
 
-fourier = numpy.fft.fft(frecuencias)
-fourierInv = numpy.fft.ifft(frecuencias)
-
-#matp.plot(tiempo, fourier)
-
-matp.plot(tiempo,fourier,label="Grafico fourier")
-
+matp.plot(tiempo,audio)
+matp.title('Gráfico amplitud vs tiempo')
+matp.ylabel('amplitud (db)')
+matp.xlabel('tiempo (s)')
 matp.show()
+
+fourier = numpy.fft.fft(audio)
+
+#fourierInv = numpy.fft.ifft(fourier)
+matp.plot(audio,fourier)
+matp.title('Gráfico amplitud vs frecuencia')
+matp.ylabel('amplitud (db)')
+matp.xlabel('frecuencia (hz)')
+matp.show()
+
+
+
+#Buscar mas importantes
