@@ -32,20 +32,24 @@ matp.show()
 #De acá obtuve cómo hacer el gráfico
 #https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft.html
 fourier = numpy.fft.fft(audio)
-fourierFreq = numpy.fft.fftfreq(audio.shape[-1])
+
+#De acá obtuve cómo poner la frecuencia correcta
+#https://pythondsp.rob-elder.com/loading-wav-files-and-showing-frequency-response/
+fourierFreq = numpy.fft.fftfreq(audio.shape[0], 1/rate)
 
 matp.plot(fourierFreq, numpy.abs(fourier))
 matp.title('Gráfico amplitud vs frecuencia: Transformada de Fourier')
 matp.ylabel('Amplitud')
 matp.xlabel('Frecuencia (hz)')
+#matp.xticks(numpy.arange(-4000, 4001, 1000))
 matp.show()
 
 
 fourierInv = numpy.fft.ifft(fourier)
-matp.plot(fourierFreq, fourierInv.real, fourierFreq, fourierInv.imag)
+matp.plot(time, fourierInv)
 matp.title('Gráfico amplitud vs tiempo: Transformado')
 matp.ylabel('Amplitud')
-matp.xlabel('Frecuencia (hz)')
+matp.xlabel('Tiempo (s)')
 matp.show()
 
 sci.write('handelTransformed.wav', rate, numpy.int16(fourierInv))
