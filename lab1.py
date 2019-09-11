@@ -24,10 +24,10 @@ time = numpy.linspace(0,len(audio)/rate, num=len(audio))
 
 matp.plot(time, audio)
 
-matp.title('Gráfico amplitud vs tiempo: Original')
-matp.ylabel('Amplitud ')
-matp.xlabel('Tiempo (s)')
-matp.show()
+#matp.title('Gráfico amplitud vs tiempo: Original')
+#matp.ylabel('Amplitud ')
+#matp.xlabel('Tiempo (s)')
+#matp.show()
 
 #De acá obtuve cómo hacer el gráfico
 #https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft.html
@@ -41,16 +41,52 @@ matp.plot(fourierFreq, numpy.abs(fourier))
 matp.title('Gráfico amplitud vs frecuencia: Transformada de Fourier')
 matp.ylabel('Amplitud')
 matp.xlabel('Frecuencia (hz)')
-#matp.xticks(numpy.arange(-4000, 4001, 1000))
+matp.xticks(numpy.arange(-4000, 4001, 100))
 matp.show()
 
 
 fourierInv = numpy.fft.ifft(fourier)
-matp.plot(time, fourierInv)
+#matp.plot(time, fourierInv)
+#matp.title('Gráfico amplitud vs tiempo: Transformado')
+#matp.ylabel('Amplitud')
+#matp.xlabel('Tiempo (s)')
+#matp.show()
+
+sci.write('handelTransformed.wav', rate, numpy.int16(fourierInv))
+#Buscar mas importantes
+
+
+for j in range(len(fourierFreq)):
+    if(fourierFreq[j] > 1245 and fourierFreq[j] <= 1250):
+        print(fourierFreq[j])
+
+print(numpy.where(fourierFreq == 1249.9822466592807))
+print(numpy.where(fourierFreq == -1249.9822466592807))
+
+fourierTrunc = fourier
+
+for i in range(11156, len(fourierTrunc)):
+    if fourierFreq[i] < 0:
+        for j in range(i, 61957):
+            fourierTrunc[j] = 0
+        break
+    else:
+        fourierTrunc[i] = 0
+
+fourierTruncInv =  numpy.fft.ifft(fourierTrunc)
+
+matp.plot(time, fourierTruncInv)
 matp.title('Gráfico amplitud vs tiempo: Transformado')
 matp.ylabel('Amplitud')
 matp.xlabel('Tiempo (s)')
 matp.show()
 
-sci.write('handelTransformed.wav', rate, numpy.int16(fourierInv))
-#Buscar mas importantes
+
+
+matp.plot(fourierFreq, numpy.abs(fourierTrunc))
+matp.title('Gráfico amplitud vs frecuencia: Transformada de Fourier')
+matp.ylabel('Amplitud')
+matp.xlabel('Frecuencia (hz)')
+matp.show()
+
+sci.write('handelTransformedTrunc.wav', rate, numpy.int16(fourierTruncInv))
