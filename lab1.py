@@ -21,7 +21,6 @@ def graph(datax, datay, title, ylabel, xlabel):
 data = sci.read('handel.wav')
 rate = data[0]
 audio = data[1]
-
 # -------------------------------------------------------- PUNTO 2 --------------------------------------------------------
 
 # A razon de los valores obtenidos anteriormente, se conforma un arreglo de tiempos con ayuda de la funcion
@@ -46,7 +45,8 @@ graph(fourierFreq,numpy.abs(fourier),"Gráfico amplitud vs frecuencia: Transform
 # Se grafica las transformada de fourier inversa a razon del tiempo.
 graph(time, fourierInv,"Gráfico amplitud vs tiempo: Transformado", "Amplitud", "Tiempo (s)")
 
-#sci.write('handelTransformed.wav', rate, numpy.int16(fourierInv))
+# Se vuelve a producir el audio .wav en base a la inversa de la transformada de Fourier del audio original
+sci.write('handelTransformed.wav', rate, numpy.int16(fourierInv))
 
 
 # -------------------------------------------------------- PUNTO 4 --------------------------------------------------------
@@ -70,4 +70,5 @@ graph(time, fourierTruncInv,"Gráfico amplitud vs tiempo: Truncado", "Amplitud",
 # Se grafica en el dominio de la frecuencia, utilizando los valores absolutos del fourier truncado
 graph(fourierFreq, numpy.abs(fourierTrunc),"Gráfico amplitud vs frecuencia: Truncado", "Amplitud", "Frecuencia (hz)")
 
-#sci.write('handelTransformedTrunc.wav', rate, numpy.int16(fourierTruncInv))
+# Se vuelve a producir el audio .wav en base a la inversa de la transformada de Fourier del audio truncado
+sci.write('handelTransformedTrunc.wav', rate, numpy.int16(fourierTruncInv))
